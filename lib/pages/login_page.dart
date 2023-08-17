@@ -1,157 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_flutter/components/my_button.dart';
 import 'package:firebase_flutter/components/my_textfield.dart';
-import 'package:firebase_flutter/components/square_tile.dart';
+// import 'package:firebase_flutter/components/square_tile.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../components/my_text.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() {}
+  void _signIn() {}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10),
-
-              // logo
-              // const Icon(
-              //   Icons.lock,
-              //   size: 100,
-              // ),
-
-              const SizedBox(height: 50),
-
-              // welcome back, you've been missed!
-              Text(
-                'Login',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 35),
-
-              // username textfield
-              MyTextField(
-                controller: usernameController,
-                hintText: 'Username',
-                obscureText: false,
-              ),
-
-              const SizedBox(height: 10),
-
-              // password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-
-              const SizedBox(height: 10),
-
-              // forgot password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return Scaffold(
+            body: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: const Color.fromARGB(
+                      255, 227, 221, 221), // Background color
                 ),
-              ),
-
-              const SizedBox(height: 25),
-
-              // sign in button
-              // MyButton(
-              //   onTap: signUserIn,
-              // ),
-
-              const SizedBox(height: 50),
-
-              // or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 50),
-
-              // google + apple sign in buttons
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: const [
-              //     // google button
-              //     SquareTile(imagePath: 'lib/images/google.png'),
-
-              //     SizedBox(width: 25),
-
-              //     // apple button
-              //     SquareTile(imagePath: 'lib/images/apple.png')
-              //   ],
-              // ),
-
-              const SizedBox(height: 50),
-
-              // not a member? register now
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not a member?',
-                    style: TextStyle(color: Colors.grey[700]),
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'Register now',
-                    style: TextStyle(
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: 400.w,
+                    height: 190.h,
+                    decoration: BoxDecoration(
                       color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.r),
+                        bottomRight: Radius.circular(20.r),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Rounded Bottom',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 350.w,
+                    height: 500.h,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyTextComponent(
+                            text: 'Login',
+                            fontSize: 40.sp,
+                          ),
+
+                          // const Spacer(
+                          //   flex: 1,
+                          // ),
+                          SizedBox(height: 26.h),
+
+                          MyTextField(
+                            controller: emailController,
+                            labelText: 'Email',
+                            hintText: 'Enter your email',
+                            obscureText: true,
+                            prefixIcon: const Icon(Icons.email),
+                          ),
+                          SizedBox(height: 26.h),
+                          MyTextField(
+                            controller: passwordController,
+                            labelText: 'Password',
+                            hintText: 'Enter your password',
+                            obscureText: true,
+                            prefixIcon: const Icon(Icons.lock),
+                          ),
+                          SizedBox(height: 26.h),
+                          MyButton(
+                            signIn: () {},
+                          ),
+                          SizedBox(height: 16.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MyTextComponent(
+                                text: 'Forgot Password?',
+                                fontSize: 14.sp,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MyTextComponent(
+                                text: 'Not Registered? Sign Up',
+                                fontSize: 14.sp,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
